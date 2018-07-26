@@ -1,4 +1,4 @@
-package com.github.tommytc.brusheffect
+package com.github.tommytc.lib.brusheffect
 
 import android.animation.Animator
 import android.animation.ValueAnimator
@@ -23,13 +23,13 @@ class BrushEffectLayout : FrameLayout {
     var isReverse = false
     var endColor = 0
     var startColor = 0
+    var orientation = ORIENTATION_HORIZONTAL
     var listener:Listener? = null
+    var duration: Long = 600
+    var interpolator: Interpolator
     private lateinit var animator: ValueAnimator
     private var colorAnimator: ValueAnimator? = null
-    private var orientation = ORIENTATION_HORIZONTAL
     private var paint: Paint
-    private var duration: Long = 600
-    private var interpolator: Interpolator
     private var progress = 0f
     private var centerPoint = 0f
     private var currentForwadPosition = 0f
@@ -55,7 +55,14 @@ class BrushEffectLayout : FrameLayout {
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
         println("B:${currentBackPosition}\tF:${currentForwadPosition}")
-        canvas.drawLine(currentBackPosition, centerPoint, currentForwadPosition, centerPoint, paint)
+        when (orientation) {
+            ORIENTATION_HORIZONTAL -> run {
+                canvas.drawLine(currentBackPosition, centerPoint, currentForwadPosition, centerPoint, paint)
+            }
+            ORIENTATION_VERTICAL -> run {
+                canvas.drawLine(centerPoint, currentBackPosition,centerPoint,currentForwadPosition, paint)
+            }
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -65,10 +72,11 @@ class BrushEffectLayout : FrameLayout {
                 centerPoint = h * 0.5f
                 paint.strokeWidth = h.toFloat() * strokeWidth
                 animator = ValueAnimator.ofFloat(paint.strokeWidth*-2f, w.toFloat()+paint.strokeWidth)
-                animator.duration = duration
-                animator.interpolator = interpolator
-//                animator.addListener(Animator.AnimatorListener)
-
+            }
+            ORIENTATION_VERTICAL -> run {
+                centerPoint = w * 0.5f
+                paint.strokeWidth = w.toFloat() * strokeWidth
+                animator = ValueAnimator.ofFloat(paint.strokeWidth*-2f, h.toFloat()+paint.strokeWidth)
             }
         }
     }
@@ -76,7 +84,8 @@ class BrushEffectLayout : FrameLayout {
     fun brush() {
         if (animator.isRunning)
             return
-        currentBackPosition = if (isReverse) width.toFloat() else paint.strokeWidth*-2f
+        val orientationValue = if (orientation== ORIENTATION_HORIZONTAL )width.toFloat() else height.toFloat()
+        currentBackPosition = if (isReverse) orientationValue else paint.strokeWidth*-2f
         currentForwadPosition = currentBackPosition
         animator.removeAllListeners()
         animator.addListener(AnimationEvent({animator ->
@@ -103,17 +112,20 @@ class BrushEffectLayout : FrameLayout {
                 }
                 start()
             }
+        else
+            paint.color = startColor
+
+        animator.interpolator = interpolator
+        animator.duration = duration
         animator.start()
     }
 
     fun hide() {
-        if (animator.isRunning)
-            return
-        currentBackPosition = if (isReverse) width.toFloat() else paint.strokeWidth*-2f
+        val orientationValue = if (orientation== ORIENTATION_HORIZONTAL )width.toFloat() else height.toFloat()
+        currentBackPosition = if (isReverse) orientationValue else paint.strokeWidth*-2f
         animator.removeAllListeners()
         animator.addListener(AnimationEvent({animator ->
             colorAnimator?.resume()
-            listener?.onStart()
         }){animator ->
             listener?.onFinish()
         })
@@ -123,9 +135,12 @@ class BrushEffectLayout : FrameLayout {
             if (!isReverse)
                 currentBackPosition = animator.animatedValue as Float
             else
-                currentBackPosition = width - animator.animatedValue as Float
+                currentBackPosition = orientationValue - animator.animatedValue as Float
             invalidate()
         }
+
+        animator.interpolator = interpolator
+        animator.duration = duration
         animator.start()
     }
 

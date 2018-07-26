@@ -1,26 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEE"
     tools:context="com.github.tommytc.brusheffect.DemoActivity">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></LinearLayout>
 
-    <com.github.tommytc.brusheffect.BrushEffectLayout
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_coffee" />
+
+    <com.github.tommytc.lib.brusheffect.BrushEffectLayout
+        android:id="@+id/layoutTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="26dp">
 
         <TextView
-            android:onClick="onClick"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="BrushEffect"
-            android:textSize="20sp" />
+            android:onClick="onClick"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="Java"
+            android:textColor="#FFF"
+            android:textSize="38sp"
+            android:textStyle="bold" />
 
-    </com.github.tommytc.brusheffect.BrushEffectLayout>
+    </com.github.tommytc.lib.brusheffect.BrushEffectLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <com.github.tommytc.lib.brusheffect.BrushEffectLayout
+        android:id="@+id/layoutDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTitle"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="Java is a general-purpose computer-programming language that is concurrent, class-based, object-oriented,[15] and specifically designed to have as few implementation dependencies as possible"
+            android:textColor="#FFF"
+            android:textSize="12sp" />
+
+    </com.github.tommytc.lib.brusheffect.BrushEffectLayout>
+
+    <com.github.tommytc.lib.brusheffect.BrushEffectLayout
+        android:id="@+id/layoutImgDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="26dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:onClick="onClick"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/img_james" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:ellipsize="end"
+                android:onClick="onClick"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:text="James Gosling, the creator of Java"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+
+    </com.github.tommytc.lib.brusheffect.BrushEffectLayout>
+
+</RelativeLayout>
