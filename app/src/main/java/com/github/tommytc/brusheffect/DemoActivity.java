@@ -2,6 +2,7 @@ package com.github.tommytc.brusheffect;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -26,36 +27,48 @@ public class DemoActivity extends Activity {
         setContentView(R.layout.activity_demo);
     }
 
-    public void onClick(final View view){
+    public void onClick1(View view){
         final BrushEffectLayout parent = (BrushEffectLayout) view.getParent();
-        parent.setInterpolator(new AccelerateDecelerateInterpolator());
-        parent.setEndColor(0xFFDDDD00);
-        parent.setStartColor(Color.YELLOW);
-        parent.setDuration(1000);
-        parent.setOrientation(BrushEffectLayoutKt.ORIENTATION_HORIZONTAL);
-//        parent.setReverse(true);
+        parent.setStartColor(Color.BLACK);
+        parent.setEndColor(Color.WHITE);
+        parent.setReverse(false);
         parent.setListener(new BrushEffectLayout.Listener() {
             @Override
             public void onStart() {
-                Toast.makeText(DemoActivity.this,"Start",Toast.LENGTH_SHORT).show();
+                Toast.makeText(DemoActivity.this, "Start", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCover() {
-                Toast.makeText(DemoActivity.this,"Cover",Toast.LENGTH_SHORT).show();
-//                view.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-                        if (view instanceof TextView)
-                            ((TextView) view).setText(String.valueOf(System.currentTimeMillis()));
-                        parent.hide();
-//                    }
-//                },100);
+                Toast.makeText(DemoActivity.this, "Cover", Toast.LENGTH_SHORT).show();
+                parent.hide();
             }
 
             @Override
             public void onFinish() {
-                Toast.makeText(DemoActivity.this,"Finish",Toast.LENGTH_SHORT).show();
+                Toast.makeText(DemoActivity.this, "Finish", Toast.LENGTH_SHORT).show();
+            }
+        });
+        parent.brush();
+    }
+
+    public void onClick(final View view) {
+        final BrushEffectLayout parent = (BrushEffectLayout) view.getParent();
+        parent.setListener(new BrushEffectLayout.Listener() {
+            @Override
+            public void onStart() {
+                Toast.makeText(DemoActivity.this, "Start", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCover() {
+                Toast.makeText(DemoActivity.this, "Cover", Toast.LENGTH_SHORT).show();
+                parent.hide();
+            }
+
+            @Override
+            public void onFinish() {
+                Toast.makeText(DemoActivity.this, "Finish", Toast.LENGTH_SHORT).show();
             }
         });
         parent.brush();

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BrushEffectLayout">
+        <attr name="bel_strokeWidth" format="float"/>
+        <attr name="bel_reverse" format="boolean"/>
+        <attr name="bel_startColor" format="color"/>
+        <attr name="bel_endColor" format="color"/>
+        <attr name="bel_duration" format="integer"/>
+        <attr name="bel_orientation" format="enum">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+        <attr name="bel_strokeCap" format="enum">
+            <enum name="butt" value="0"/>
+            <enum name="round" value="1"/>
+            <enum name="square" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>

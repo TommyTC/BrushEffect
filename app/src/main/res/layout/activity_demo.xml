@@ -16,15 +16,25 @@
 
     <com.github.tommytc.lib.brusheffect.BrushEffectLayout
         android:id="@+id/layoutTitle"
+        app:bel_startColor="@color/colorAccent"
+        app:bel_duration="600"
+        app:bel_strokeCap="square"
+        app:bel_reverse="true"
+        app:bel_orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="26dp">
 
         <TextView
+            android:shadowColor="#6000"
+            android:shadowRadius="16"
+            android:shadowDx="0"
+            android:shadowDy="6"
+            android:id="@+id/tvTitle"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:onClick="onClick"
+            android:onClick="onClick1"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:text="Java"
@@ -36,6 +46,8 @@
 
     <com.github.tommytc.lib.brusheffect.BrushEffectLayout
         android:id="@+id/layoutDescription"
+        app:bel_duration="600"
+        app:bel_strokeCap="round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTitle"
@@ -43,6 +55,11 @@
         android:layout_marginTop="10dp">
 
         <TextView
+            android:shadowColor="#000"
+            android:shadowRadius="6"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:id="@+id/tvDescription"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -54,41 +71,55 @@
 
     </com.github.tommytc.lib.brusheffect.BrushEffectLayout>
 
-    <com.github.tommytc.lib.brusheffect.BrushEffectLayout
-        android:id="@+id/layoutImgDescription"
+    <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="26dp"
         android:layout_marginRight="16dp"
-        android:background="@android:color/white">
+        android:elevation="6dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="6dp">
 
-        <LinearLayout
-            android:layout_width="100dp"
+        <com.github.tommytc.lib.brusheffect.BrushEffectLayout
+            android:id="@+id/layoutImgDescription"
+            app:bel_orientation="vertical"
+            app:bel_duration="600"
+            app:bel_strokeCap="butt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@android:color/white">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
+            <LinearLayout
+                android:clickable="true"
                 android:onClick="onClick"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/img_james" />
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:ellipsize="end"
-                android:onClick="onClick"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:text="James Gosling, the creator of Java"
-                android:textSize="10sp" />
+                <ImageView
+                    android:id="@+id/ivPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/img_james" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvPhotoDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:ellipsize="end"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:text="James Gosling, the creator of Java"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
 
 
-    </com.github.tommytc.lib.brusheffect.BrushEffectLayout>
+        </com.github.tommytc.lib.brusheffect.BrushEffectLayout>
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>
