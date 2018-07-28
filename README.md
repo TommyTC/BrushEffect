@@ -1,14 +1,15 @@
 # 🖌️BrushEffcet
 
-####This is a simple animation effect for any android view.
+###This is a simple animation effect for any android view.
+
 __It's very very simple and easy to use,so I don't know how to write the README.md for this project.__**😅
 
 
-##Preview
+###Preview
 ![Preview](/preview/preview.gif)
 
 ------
-##Usage
+###Usage
 ```xml
 <com.github.tommytc.lib.brusheffect.BrushEffectLayout
         android:id="@+id/layoutTitle"
