@@ -4,41 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEE"
+    android:background="#FFF"
     tools:context="com.github.tommytc.brusheffect.DemoActivity">
 
-    <ImageView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/img_coffee" />
+        android:scaleType="centerCrop" />
 
     <com.github.tommytc.lib.brusheffect.BrushEffectLayout
         android:id="@+id/layoutTitle"
-        app:bel_startColor="@color/colorAccent"
-        app:bel_duration="600"
-        app:bel_strokeCap="square"
-        app:bel_reverse="true"
-        app:bel_orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="26dp">
+        android:layout_marginTop="26dp"
+        app:bel_duration="400"
+        app:bel_orientation="horizontal"
+        app:bel_reverse="true"
+        app:bel_startColor="@color/colorAccent"
+        app:bel_strokeCap="square">
 
         <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="onClick1"
+            android:padding="6dp"
             android:shadowColor="#6000"
-            android:shadowRadius="16"
             android:shadowDx="0"
             android:shadowDy="6"
-            android:id="@+id/tvTitle"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:onClick="onClick1"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
+            android:shadowRadius="16"
             android:text="Java"
-            android:textColor="#FFF"
+            android:textColor="#FF3F51B5"
             android:textSize="38sp"
             android:textStyle="bold" />
 
@@ -46,27 +46,28 @@
 
     <com.github.tommytc.lib.brusheffect.BrushEffectLayout
         android:id="@+id/layoutDescription"
-        app:bel_duration="600"
-        app:bel_strokeCap="round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTitle"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        app:bel_duration="400">
 
         <TextView
-            android:shadowColor="#000"
-            android:shadowRadius="6"
-            android:shadowDx="0"
-            android:shadowDy="2"
             android:id="@+id/tvDescription"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:lines="5"
             android:onClick="onClick"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
+            android:shadowColor="#6000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="6"
             android:text="Java is a general-purpose computer-programming language that is concurrent, class-based, object-oriented,[15] and specifically designed to have as few implementation dependencies as possible"
-            android:textColor="#FFF"
+            android:textColor="#FF3F51B5"
             android:textSize="12sp" />
 
     </com.github.tommytc.lib.brusheffect.BrushEffectLayout>
@@ -83,36 +84,39 @@
         app:cardElevation="6dp">
 
         <com.github.tommytc.lib.brusheffect.BrushEffectLayout
-            android:id="@+id/layoutImgDescription"
-            app:bel_orientation="vertical"
-            app:bel_duration="600"
-            app:bel_strokeCap="butt"
+            android:id="@+id/layoutImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            app:bel_duration="400"
+            app:bel_orientation="vertical"
+            app:bel_strokeCap="round">
 
             <LinearLayout
-                android:clickable="true"
-                android:onClick="onClick"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClick"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/ivPhoto"
+                    android:id="@+id/ivImage"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/img_james" />
 
                 <TextView
-                    android:id="@+id/tvPhotoDescription"
+                    android:background="#FF3F51B5"
+                    android:textColor="#FFF"
+                    android:id="@+id/tvImageDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:text="James Gosling, the creator of Java"
+                    android:lines="3"
                     android:textSize="10sp" />
 
             </LinearLayout>

@@ -6,11 +6,10 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnticipateInterpolator
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.view.animation.Interpolator
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import java.lang.ref.SoftReference
 
 /**
@@ -40,7 +39,8 @@ class BrushEffectLayout : FrameLayout {
     var orientation = ORIENTATION_HORIZONTAL
     var listener: Listener? = null
     var duration: Long = 300
-    var interpolator: Interpolator
+    var inInterpolator: Interpolator
+    var outInterpolator: Interpolator
     /**
      * @strokeWidth is a scale value,is not a absolute value.
      * if strokeWidth is 1.0 than the paint stroke will be this layout width or height.
@@ -80,7 +80,8 @@ class BrushEffectLayout : FrameLayout {
         paint.strokeCap = strokeCap
         paint.style = Paint.Style.FILL_AND_STROKE
 
-        interpolator = AccelerateDecelerateInterpolator()
+        inInterpolator = AccelerateInterpolator()
+        outInterpolator = DecelerateInterpolator()
     }
 
     private fun initializeView(context: Context, attrs: AttributeSet) {
@@ -116,7 +117,25 @@ class BrushEffectLayout : FrameLayout {
         }
     }
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        when (orientation) {
+            ORIENTATION_HORIZONTAL -> run {
+                centerPoint = h * 0.5f
+                paint.strokeWidth = h.toFloat() * strokeWidth
+            }
+            ORIENTATION_VERTICAL -> run {
+                centerPoint = w * 0.5f
+                paint.strokeWidth = w.toFloat() * strokeWidth
+            }
+        }
+    }
+
     fun brush() {
+        brush(0)
+    }
+
+    fun brush(delay: Long) {
         if (isAnimatorRunning)
             return
         getAnimator().get()?.let { animator ->
@@ -144,8 +163,9 @@ class BrushEffectLayout : FrameLayout {
             else
                 paint.color = startColor
 
-            animator.interpolator = this@BrushEffectLayout.interpolator
+            animator.interpolator = this@BrushEffectLayout.inInterpolator
             animator.duration = this@BrushEffectLayout.duration
+            animator.startDelay = delay
             animator.start()
         }
 
@@ -168,7 +188,7 @@ class BrushEffectLayout : FrameLayout {
                 invalidate()
             }
 
-            animator.interpolator = interpolator
+            animator.interpolator = outInterpolator
             animator.duration = duration
             animator.start()
         }
@@ -195,7 +215,7 @@ class BrushEffectLayout : FrameLayout {
             setIntValues(startColor, endColor)
             setEvaluator(ArgbEvaluator())
             duration = this@BrushEffectLayout.duration * 2
-            interpolator = this@BrushEffectLayout.interpolator
+            interpolator = this@BrushEffectLayout.inInterpolator
             addUpdateListener { animator: ValueAnimator? ->
                 animator?.run {
                     paint.color = animatedValue as Int
