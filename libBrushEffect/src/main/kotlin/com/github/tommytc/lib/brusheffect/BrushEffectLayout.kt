@@ -131,6 +131,9 @@ class BrushEffectLayout : FrameLayout {
         }
     }
 
+    /**
+     * play animation of starting
+     */
     fun brush() {
         brush(0)
     }
@@ -171,6 +174,9 @@ class BrushEffectLayout : FrameLayout {
 
     }
 
+    /**
+     * play animation of ending
+     */
     fun hide() {
         getAnimator().get()?.let { animator ->
             val orientationValue = if (orientation == ORIENTATION_HORIZONTAL) width.toFloat() else height.toFloat()
