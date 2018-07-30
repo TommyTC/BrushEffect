@@ -10,6 +10,9 @@
 
 ------
 ## Usage
+```java
+implementation 'com.github.tommytc:BrushEffect:1.0.0'
+```
 ```xml
 <com.github.tommytc.lib.brusheffect.BrushEffectLayout
         android:id="@+id/layoutTitle"
